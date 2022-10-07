@@ -15,20 +15,6 @@
       ?>
       <!-- header-start -->
       <header>
-        <!-- mobile-header -->
-        <div class="mobile-header">
-            <div class="container">
-                <div class="mobile-contact">
-                    <div class="menu-title">
-                        <span>MENU</span>
-                    </div>
-                    <div class="login-wrapper">
-                        <a href="<?php echo get_site_url() ?>/portal/login" class="login-btn">LOGIN</a>
-                    </div>
-                </div>
-            
-            </div>
-        </div>
         <div class="header-main">
             <nav class="navbar navbar-expand-lg ">
                 <div class="container resp-flex-direction">
@@ -44,13 +30,13 @@
                         <a class="nav-link <?php echo is_page_template( 'template-portal.php' ) ? 'active' : '';?> " aria-current="page" href="<?php echo get_site_url() ?>/portal">DASHBOARD</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link <?php echo is_page_template( 'template-portal-calendar.php' ) ? 'active' : '';?>" href="<?php echo get_site_url() ?>/portal/calendar">CALNEDER</a>
+                        <a class="nav-link <?php echo is_page_template( 'template-portal-calendar.php' ) ? 'active' : '';?>" href="<?php echo get_site_url() ?>/portal/calendar">CALENDAR</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link <?php echo is_page_template( 'template-portal-nutrition.php' ) ? 'active' : '';?>" href="<?php echo get_site_url() ?>/portal/nutrition">NUTRION</a>
+                        <a class="nav-link <?php echo is_page_template( 'template-portal-nutrition.php' ) ? 'active' : '';?>" href="<?php echo get_site_url() ?>/portal/nutrition">NUTRITION</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link <?php echo is_page_template( 'template-portal-workout.php' ) ? 'active' : '';?>" href="<?php echo get_site_url() ?>/portal/workout">WORKOUT</a>
+                        <a class="nav-link <?php echo is_page_template( 'template-portal-workout.php' ) ? 'active' : '';?>" href="<?php echo get_site_url() ?>/portal/workout">Today's WORKOUT</a>
                       </li>
                       <li class="nav-item">
                         <a class="nav-link" href="<?php echo wp_logout_url( home_url() ); ?>">Logout</a>

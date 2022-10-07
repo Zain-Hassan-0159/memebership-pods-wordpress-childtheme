@@ -28,7 +28,7 @@
         flex-direction: row-reverse;
     }
     .header-main .mobile-logo{
-        max-width: 80px;
+        max-width: 40px;
         display: block;
     }
     .top-header{
@@ -122,7 +122,7 @@
         flex-direction: row-reverse;
     }
     .header-main .mobile-logo{
-        max-width: 80px;
+        max-width: 60px;
         display: block;
     }
     .top-header{
@@ -254,10 +254,13 @@
     }
     .workout-progressbar .progress{
         height: 13px;
+        width: 86%;
     }
     .workout-progressbar span{
-        font-size: 11px;
+        font-size: 17px;
         line-height: 11px;
+        display: block;
+        width: fit-content;
     }
     .progressbar-container{
         width: 90%;
@@ -283,11 +286,12 @@
         margin-bottom: 0px;
     }
     .resp-20{
-        font-size: 20px;
+        font-size: 30px;
     }
     .days-shedule .workout-day span{
-        top: 0px;
-        left: 25px;
+        position: initial;
+        margin-left: 20px;
+        margin-top: 4px;
     }
     .workout-key-points li {
         font-size: 10px;
@@ -310,7 +314,6 @@
         margin-left: 25px;
     }
     .pdf-button {
-        width: 65px;
         height: 20px;
         font-size: 12px;
         line-height: 10px;
@@ -324,10 +327,10 @@
         height: 24px;
         line-height: 24px;
         top: 2px;
-        right: 15px;
+        right: -8px;
     }
     .calender-month h3 {
-        font-size: 11px;
+        font-size: 18px;
     }
     .calender-month .fa-chevron-right{
         margin-left: 18px;
@@ -389,5 +392,68 @@
 
     .wp-block-gallery.has-nested-images figure.wp-block-image:not(#individual-image){
         width: 100% !important;
+    }
+
+    .mobile-calender li a{
+        font-size: 30px;
+        color: #2b2f38;
+        font-weight: bold;
+        text-decoration: none;
+    }
+    
+    .mobile-calender .workout-completed a{
+        color: #64DDC3;
+    }
+    
+    .header-main .navbar-toggler{
+        background-color: transparent !important;
+        outline: none;
+        border: none;
+    }
+    
+    .navbar-toggler i{
+        color: #2b2f38;
+        font-size: 26px;
+    }
+
+    .navbar-toggler i:focus{
+        color: #64DDC3;
+    }
+
+    .navbar-toggler i:target{
+        color: #64DDC3;
+    }
+
+    .navbar-toggler i:hover{
+        color: #64DDC3;
+    }
+
+
+    .mobile-calender li a:focus{
+        color: #64DDC3;
+    }
+
+    .mobile-calender li a:target{
+        color: #64DDC3;
+    }
+
+    .mobile-calender li a:hover{
+        color: #64DDC3;
+    }
+    
+    .header-main .navbar-nav{
+        margin-left: auto;
+    }
+
+    .header-main .navbar-collapse{
+        top: 60px;
+        width: 50%;
+    }
+
+    .days-shedule .workout-day .f-25{
+        width: 100%;
+        text-align: left;
+        margin-left: 20px;
+        margin-top: 4px;
     }
 }

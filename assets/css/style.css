@@ -32,6 +32,7 @@ p{
 body,html {
     height: 100%;
     scroll-behavior: smooth;
+    position: initial !important;
 }
 ._rel{position: relative;}
 a,a:after,i,img,._card,a:before,._box,._inspiration ._img span{
@@ -76,7 +77,13 @@ h3{
 .f-25{
     font-family: 'BebasNeue Regular';
     font-size: 25px;
-    line-height: 32px;
+
+}
+.days-shedule .workout-day .f-25{
+    text-align: center;
+    line-height: normal;
+    margin: 0;
+    margin-top: 20px;
 }
 .f-40{
     font-size: 40px;
@@ -158,10 +165,9 @@ background-image: linear-gradient(
     border: none;
     letter-spacing: normal;
     text-decoration: none; 
-    padding: 10px;
+    padding: 10px 22px;
     margin-bottom: 10px;
-    max-width: 260px;
-    width: 100%;
+    max-width: fit-content;
 }
 .meal-plan-button:hover{
     color: #fff;
@@ -190,8 +196,7 @@ background-image: linear-gradient(
 
 }
 .portal-section .login-warrper{
-    background-color: #C5C6C8;
-    
+/*     background-color: #C5C6C8; */
     margin: auto;
 /*     padding: 100px 0; */
 	width: 565px;
@@ -199,8 +204,8 @@ background-image: linear-gradient(
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 100%;
-    border: 22px solid var(--div-portal-border-color);
+/*     border-radius: 100%; */
+/*     border: 22px solid var(--div-portal-border-color); */
     text-align: center;
 }
 .login-form{
@@ -320,6 +325,7 @@ header  nav .navbar-nav .nav-item a{
     text-transform: uppercase;
     border: 1px solid #7070707b;
     padding:10px;
+    cursor: pointer;
 }
 header nav .navbar-nav .nav-item .active{
     background-color: var(--div-portal-border-color);
@@ -332,6 +338,7 @@ header nav .navbar-nav .nav-item .active{
     position: relative;
     height: 617px;
     width: 100%;
+    max-width: 360px;
 }
 
 .courses-cards .course-card .course-thumbnail{
@@ -453,8 +460,6 @@ header nav .navbar-nav .nav-item .active{
     position: relative;
     text-align: right;
     margin: 20px;
-    max-width: 224px;
-    width: 100%;
 }
 .pdf-btn .download-icon img{
     width: 20px;
@@ -622,7 +627,8 @@ padding: 30px 0;
     width: inherit;
 }
 .related-course-details h3{
-    font-size: 12px;
+    font-size: 18px;
+    font-weight: normal;
     color: #fff;
     margin: 0px;
     word-break: break-word;
@@ -811,3 +817,4 @@ input:-webkit-autofill{
 	color:#fff;
 	margin-right: 10px;
 }
+

@@ -26,7 +26,7 @@ if(empty(get_cs_ids())){
 
 
     $post = get_post( $post->ID );
-    $excerpt = ( $post->post_excerpt ) ? $post->post_excerpt : "ourselves";
+    $excerpt = ( $post->post_excerpt ) ? $post->post_excerpt : "Our Course(s)";
 
     global $post, $wpdb;
     // Return the all membership levels

@@ -51,32 +51,26 @@ if($course_id !== ""){
   set_transient( 'recent_course_id_' . get_level_id_of_current_user(), $course_id, 60 * DAY_IN_SECONDS );
 }
 
-// // // get an option
-// // $value = true;
-// // update_option( 'wporg_test_option', $allDaysRecord );
-// // delete_option( $key );
-// // $options_r = get_option('wporg_test_option');
-// // var_dump($options_r);
-
-// echo "<pre>";
-// // $options_r = get_option('wporg_test_option');
-
-// echo "<pre>";
-// print_r(get_option($key)); 
-// exit;
-
 // Tracking the Latest unseen day 
-$key = "userLevel_".get_level_id_of_current_user()."_userId_".get_current_user_Id()."_courseId_".$course_id;
-if($course_day_id === ""){
-  foreach(get_option($key) as $day){
-    if($day['completed'] === "no"){
-      $course_day_id = $day['post_id'];
-      break;
+
+if($course_day_id ===''){
+  $table_name = $wpdb->prefix . "portal_days_record";
+  $course_level = $wpdb->get_col( "SELECT membership_id FROM {$wpdb->pmpro_memberships_pages} WHERE page_id = '" . intval( $course_id ) . "'" );
+  $key = "userLevel_".$course_level[0]."_userId_".get_current_user_Id()."_courseId_".$course_id;
+  $days_records = $wpdb->get_results("SELECT days_records FROM $table_name WHERE user_key = '$key'" ); 
+  $days_records = json_decode($days_records[0]->days_records, true); 
+  // echo "<pre>";
+  // var_dump($course_day_id); 
+  // exit;
+  if($days_records !== NULL){
+    foreach($days_records as $day){
+      if($day['completed'] === 'no'){
+        $course_day_id = $day['post_id'];
+        break;
+      }
     }
   }
 }
-
-
 
 $day_id = "";
 $params = array(
@@ -158,6 +152,7 @@ if($course_day_id !==''){
       }
     }
   }
+
 }
 
 
@@ -231,15 +226,15 @@ if($no_of_day > 0 && $no_of_day < 8){
             </div>
           </div>
           <?php }else{
+            ?>
+            <h3><?php  echo get_the_title($course_day_id); ?></h3>
+            <?php
             $img_url = get_the_post_thumbnail_url($course_day_id, 'full');
             if($img_url !== false){
               ?>
               <img src="<?php echo $img_url; ?>" alt="Rest Day">
               <?php
             }
-            ?>
-            <h3><?php  echo get_the_title($course_day_id); ?></h3>
-            <?php
           } ?>
           <div class="course-complete">
             <a href="<?php echo get_site_url(null, '/portal/calendar/?completed='.$course_day_id, 'https');?>" class="complete-btn">COMPLETED</a>

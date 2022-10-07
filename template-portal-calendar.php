@@ -239,16 +239,9 @@ if($complete_day_id !== ""){
                     </div>
                     <div class="workout-buttons"> 
                         <div class="row">
-                            <div class="col-md-4 col-4">
-                                <!-- <div class="workout-fullplan">
-                                    <a href="" id="full-plan" class="full-plan-btn">Full Plan</a>
-                                </div> -->
-                            </div>
-                            <div class="col-md-4 col-4">
+                            <div class="col-md-4 offset-md-4 offset-3 col-6">
                                 <div class="calender-month text-center">
                                     <?php
-                                    // print(count($weeks_data));
-                                    // exit;
 
                                     ?>
                                     <i id="previous_month_button" class="fa-solid fa-chevron-left" onClick="previousMonth(event)"></i>
@@ -264,12 +257,19 @@ if($complete_day_id !== ""){
                     <div class="mobile-calender">
                     <?php
                     foreach($weeks_data as $key => $week){
+                        $month =  $key+1 > 4 ? " month_".ceil(($key+1)/4) : " month_1";
                         ?>
-                        <ul class="days"> 
+                        <ul class="days week-shedule weekId_<?php echo $key+1; echo " d-none "; echo $month; echo ($key+1)%4 === 0 ? " last_week " : ""; ?>"> 
                         <?php
+                        
                             foreach($week as $day){
+                                $workCompleted = $days_records[$day['no_of_day']]['completed'] === "yes" ? "workout-completed" : "";
                                 ?>
-                                <li><?php echo $day['no_of_day']; ?></li>
+                                <li class="<?php echo $workCompleted; ?>">
+                                    <a href="<?php echo get_site_url(null, '/portal/workout/?day_id='.$day['post_id'], 'https');?>" >
+                                        <?php echo $day['no_of_day']; ?>
+                                    </a>
+                                </li>
                                 <?php
                             }
                             ?> 
@@ -284,7 +284,6 @@ if($complete_day_id !== ""){
         </div>
         <div class="workout-calender">
             <?php
-
             foreach($weeks_data as $key => $week){
                 $month =  $key+1 > 4 ? " month_".ceil(($key+1)/4) : " month_1";
                 ?>
@@ -356,8 +355,6 @@ if($complete_day_id !== ""){
                 document.querySelectorAll(".week-shedule").forEach(item=>{
                     item.classList.add("d-none");
                 });
-                console.log(".month_" + (current_month + 1))
-                console.log(document.querySelectorAll(".month_" + current_month+1 ))
                 document.querySelectorAll(".month_" + (current_month + 1)).forEach(item=>{
                     item.classList.remove("d-none");
                 });
@@ -378,8 +375,6 @@ if($complete_day_id !== ""){
                 document.querySelectorAll(".week-shedule").forEach(item=>{
                     item.classList.add("d-none");
                 });
-                console.log(".month_" + (current_month - 1))
-                console.log(document.querySelectorAll(".month_" + current_month-1 ))
                 document.querySelectorAll(".month_" + (current_month - 1)).forEach(item=>{
                     item.classList.remove("d-none");
                 });
@@ -388,7 +383,21 @@ if($complete_day_id !== ""){
             }
 
         }
+
+        function updateCalendarToDo(event){
+            document.querySelectorAll(".mobile-calender .last_week").forEach((item, key)=>{
+            
+               // console.log(item.children().every(val => val.classList === "workout-completed"));
+
+                var array1 = item.children;
+                var checkSequence = Object.values(array1).every(currentValue => currentValue.classList.value  === "workout-completed");
+                if(checkSequence === true){
+                    document.querySelector("#next_month_button").click();
+                }
+            })
+        }
+        window.addEventListener('DOMContentLoaded', updateCalendarToDo);
     </script>
 
 
-<?php echo get_footer("portal");?>
+<?php echo get_footer("portal"); ?>

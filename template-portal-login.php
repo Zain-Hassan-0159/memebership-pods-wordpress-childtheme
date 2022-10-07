@@ -51,7 +51,9 @@
                     <div class="login-form">
                         <form action="<?php echo get_site_url(null, '/wp-login.php', 'https'); ?>" method="post">
                             <div class="form-logo">
+                                <a href="<?php echo get_site_url(null, '', 'https'); ?>">
                                 <img src="<?php echo get_stylesheet_directory_uri()?>/assets/images/logoForm.png" alt="workout logo">
+                                </a>
                             </div>
                         
                             <div class="">
