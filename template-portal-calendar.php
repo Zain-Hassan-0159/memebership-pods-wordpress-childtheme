@@ -8,6 +8,8 @@
 $course_id = isset($_GET["cs_id"]) && !empty( $_GET["cs_id"]) ? $_GET["cs_id"] : "";
 $complete_day_id = isset($_GET["completed"]) && !empty( $_GET["completed"]) ? $_GET["completed"] : "";
 
+
+
 // If not login or not get membership then redirect the login page
 if( !is_user_logged_in() || get_level_id_of_current_user() === false  ){
     if( role_of_current_user() !== "administrator" ){
@@ -51,6 +53,28 @@ if($course_id !== ""){
 }else{
     $course_id = get_cs_ids()[0];
     set_transient( 'recent_course_id_' . get_level_id_of_current_user() , $course_id, 60 * DAY_IN_SECONDS );
+}
+
+
+// check Reset Variable for Calendar
+if(isset($_GET["res_cal"]) && $_GET["res_cal"] !== ""){
+    if($_GET["res_cal"] === 'ok'){
+        global $wpdb;
+        $course_level = $wpdb->get_col( "SELECT membership_id FROM {$wpdb->pmpro_memberships_pages} WHERE page_id = '" . intval( $course_id ) . "'" );
+
+        $key = "userLevel_".$course_level[0]."_userId_".get_current_user_Id()."_courseId_".$course_id;
+        $table_name = $wpdb->prefix . "portal_days_record";
+        // check if key exist already it has the empty data
+        // $checkKey = $wpdb->get_results("SELECT user_key FROM $table_name WHERE user_key = '$key'" );
+        
+
+        // $days_records = $wpdb->get_results("SELECT days_records FROM $table_name WHERE user_key = '$key'" ); 
+        // $days_records = json_decode($days_records[0]->days_records); 
+        $wpdb->delete( $table_name, array( 'user_key' => $key ) );
+
+        // print_r($checkKey);
+        // exit;
+    }
 }
 
 
@@ -250,6 +274,10 @@ if($complete_day_id !== ""){
                                 </div>
                             </div>
                             <div class="col-md-4 col-4">
+                                <form action="" method="get">
+                                    <input type="hidden" name="res_cal" value="ok">
+                                    <input type="submit" value="Reset Calendar">
+                                </form>
                             </div>
                         </div>
                     </div>

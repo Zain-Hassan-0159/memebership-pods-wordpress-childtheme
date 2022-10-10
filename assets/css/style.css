@@ -770,7 +770,7 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
     transition: background-color 5000s ease-in-out 0s;
 }
-input:-webkit-autofill{
+.login-form input:-webkit-autofill{
     -webkit-text-fill-color: white !important;
 }
 .login-form .login-submit{
@@ -778,11 +778,32 @@ input:-webkit-autofill{
 	text-align:right;
 	padding-right:80px;
 }
+.login-form  .lost_reset_password p:nth-child(4){
+	background-color:#fff !important;
+	text-align:right;
+	padding-right:80px;
+}
+.login-form  .lost_reset_password p:nth-child(1){
+    background: none;
+    color: white;
+    display: flex;
+    width: 100%;
+    height: fit-content;
+    line-height: inherit;
+    font-weight: bold;
+}
 .login-form .login-submit #wp-submit{
 	background-color:#D31212;
 	height:42px;
 	width:100px;
 	border-radius:0px;
+}
+.login-form .lost_reset_password p:nth-child(4) .button{
+    background-color: #D31212;
+    height: 42px;
+    width: 173px;
+    border-radius: 0px;
+    padding: 1px;
 }
 .login-form ::placeholder {
   color: #fff;
@@ -818,3 +839,12 @@ input:-webkit-autofill{
 	margin-right: 10px;
 }
 
+.forget_password{
+    color:#fff;
+    font-weight: 700;
+}
+
+.forget_password:hover{
+    color:#fff;
+    font-weight: 700;
+}

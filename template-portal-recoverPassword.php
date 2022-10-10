@@ -1,6 +1,6 @@
 <?php
 /* 
-*   Template Name: Portal Login
+*   Template Name: Portal Recovery Password
 *   Post Type: page
 */
 
@@ -49,29 +49,10 @@
                 <img src="<?php echo get_stylesheet_directory_uri()?>/assets/images/IIII.png" alt="monkey" class="hanging-monkey">
                 <div class="login-warrper">
                     <div class="login-form">
-                        <form action="<?php echo get_site_url(null, '/wp-login.php', 'https'); ?>" method="post">
-                            <div class="form-logo">
-                                <a href="<?php echo get_site_url(null, '', 'https'); ?>">
-                                <img src="<?php echo get_stylesheet_directory_uri()?>/assets/images/logoForm.png" alt="workout logo">
-                                </a>
-                            </div>
-                        
-                            <div class="">
-                                <?php 
-                                $args = array(
-                                    'echo'           => true,
-                                    'remember'       => true,
-                                    'redirect'       => ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],
-                                    'form_id' => 'loginform',
-                                    'remember' => true,
-                                    'value_username' => NULL,
-                                    'value_remember' => true );
-                                echo wp_login_form($args); 
-                                ?>
-                            </div>
-                        
-                        </form>
-                        <a class="forget_password" href="<?php echo get_site_url(null, '/login/password-recovery/', 'https'); ?>">Forget Password?</a>
+                        <?php
+                        echo wc_get_template( 'myaccount/form-lost-password.php', array( 'form' => 'lost_password' ) );
+                        ?>
+                     
                     </div>
                 </div>
             </div>
@@ -80,11 +61,6 @@
     </div>
 </section>
 
-  <script>
-jQuery(document).ready(function(){
-    jQuery('#user_login').attr('placeholder', 'User Name');
-    jQuery('#user_pass').attr('placeholder', 'User Password');
-});
-  </script>
+
 
  <?php //echo get_footer("portal");?>

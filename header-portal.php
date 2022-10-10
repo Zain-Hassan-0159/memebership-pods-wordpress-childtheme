@@ -11,7 +11,7 @@
   </head>
   <body>
     <?php
- if(!is_page_template( array( 'template-portal-login.php' ) )){
+ if(!is_page_template( array( 'template-portal-login.php', 'template-portal-recoverPassword.php' ) )){
       ?>
       <!-- header-start -->
       <header>
