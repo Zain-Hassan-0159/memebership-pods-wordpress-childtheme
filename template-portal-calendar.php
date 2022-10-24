@@ -99,27 +99,38 @@ $pod = pods("course_day", $params);
 
 // Total Days ( issue to solve: We need only the days of specific course )
 $total_days = $pod->total();
+
 // Total Weeks
 $total_weeks = intval( $total_days/7 );
 // Weeks structured data
 $weeks_data = [];
 $track_days = [];
 if($total_days > 0){
+    
     $week_data = [];
     $day_data = [];
     $inner_n = 0;
     $no_of_week = 0;
+    $videos = [];
+    // $count = 0;
 
     while($pod->fetch()) {
         // tracking total days of the course
         $track_days[$pod->field("select_the_day")]['completed'] = "no";
         $track_days[$pod->field("select_the_day")]['post_id'] = $pod->field("ID");
 
+        // // testing
+        // $videos[] = $pod->field("ID");
+        // $count++;
+
+
         // $inner_n is used for number tracking of the post in loop
         $inner_n++;
         // If total no of days of the course are less than or equal to 7
         if( $total_days < 8 ){
             // putting the current post data into day data array
+            
+
             $day_data['post_id'] = $pod->field("ID");
             $day_data['no_of_day'] = $pod->field("select_the_day");
             $day_data['day_title'] = $pod->field("post_title");
@@ -168,6 +179,13 @@ if($total_days > 0){
             }
         }
     }
+    
+    
+//     echo "<pre>";
+//     var_dump($count);
+//     echo "zain";
+//    // print_r($videos);
+//     exit;
 
 } 
 

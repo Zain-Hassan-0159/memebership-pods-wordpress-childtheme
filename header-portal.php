@@ -48,7 +48,7 @@
         </div>
         <div class="container">
             <div class="top-header">
-                <div class="profile-user">
+                <a href="<?php echo get_site_url() ?>/my-account" class="profile-user">
                    <?php
                    $current_user = wp_get_current_user();
                    echo get_avatar( $current_user->ID, 64 );
@@ -64,7 +64,7 @@
                     } ?>
                    </div>
                    
-                </div>
+                  </a>
                 <div>
                 
                 </div>

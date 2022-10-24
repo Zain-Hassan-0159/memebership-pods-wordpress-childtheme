@@ -2,12 +2,25 @@
       <?php
  if(!is_page_template( array( 'template-portal-login.php', 'template-portal-recoverPassword.php' ) )){
       ?>
-            <footer>
+      <footer>
         <div class="container">
             <div class="footer-logo">
-              <a href="<?php echo get_site_url(null, '/portal/', 'https'); ?>">
-                <img src="<?php echo get_stylesheet_directory_uri()?>/assets/images/footer-logo.png" alt="footer-logo">
-              </a>
+              <?php
+              if(is_page_template( array( 'template-portal.php') )){
+                ?>
+                <a href="<?php echo get_site_url(null, '/shop/', 'https'); ?>">
+                  <img src="<?php echo get_stylesheet_directory_uri()?>/assets/images/footer-logo.png" alt="footer-logo">
+                </a>
+                <?php
+              }else{
+                ?>
+                <a href="<?php echo get_site_url(null, '/portal/', 'https'); ?>">
+                  <img src="<?php echo get_stylesheet_directory_uri()?>/assets/images/footer-logo.png" alt="footer-logo">
+                </a>
+                <?php
+              }
+              ?>
+
             </div>
         </div>
       </footer>

@@ -71,7 +71,7 @@
                             </div>
                         
                         </form>
-                        <a class="forget_password" href="<?php echo get_site_url(null, '/login/password-recovery/', 'https'); ?>">Forget Password?</a>
+                        <a class="forget_password" href="<?php echo get_site_url(null, '/login/password-recovery/', 'https'); ?>">Forgot your password?</a>
                     </div>
                 </div>
             </div>

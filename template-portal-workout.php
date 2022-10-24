@@ -72,39 +72,33 @@ if($course_day_id ===''){
   }
 }
 
-$day_id = "";
-$params = array(
-  // "select" => "t.*, d.*, t.product_id as pr_id",
-  "limit" => -1,
-  'orderby' => 'd.select_the_day ASC',
-  'where' => "course_name.id = ". $course_id
-
-);
-$pod = pods("course_day", $params);
-
-// default video for day one starter
-$all_videos = $pod->field("videos_for_the_day");
-
-
-$defaultVideoUrl = !empty($all_videos[0]) ? $all_videos[0]["url_for_video"] : "";
-// Default video description
-$default_description = !empty($all_videos[0]) ? $all_videos[0]["post_content"] : "";
-$default_title = !empty($all_videos[0]) ? $all_videos[0]["post_title"] : "";
-
 // Current Day All Videos
 $current_day_videos = [];
-$total_days = $pod->total();
+$mypod = pods("course_day", $course_day_id);
 
-if($total_days > 0 && $course_day_id !== "" ){
-  while($pod->fetch()){
-    $current_day = $pod->field("ID");
-    if($current_day == $course_day_id){
-      $current_day_videos = $pod->field("videos_for_the_day");
-      $course_day_id = $current_day;
-    }
+
+
+if($course_day_id === ''){
+  //default value
+  $params = array(
+    "limit" => 1,
+    'orderby' => 'length(d.select_the_day), d.select_the_day ASC',
+    'where' => "course_name.id = ". $course_id
+  );
+  $mypod2 = pods("course_day", $params);
+  while($mypod2->fetch()){
+    $defaultVideoUrl = $mypod2->field("url_for_video");
+    // Default video description
+    $default_description = $mypod2->field("post_content"); 
+    $default_title = $mypod2->field("post_title");;
   }
+}else{
+  $current_day_videos = $mypod->field("videos_for_the_day");
+  $current_day = $mypod->field("ID");
+  $course_day_id = $current_day;
 }
 
+$all_videos = [];
 if(!empty($current_day_videos)){
   $defaultVideoUrl = $current_day_videos[0]['url_for_video'];
   $default_title = $current_day_videos[0]['post_title'];
@@ -113,7 +107,6 @@ if(!empty($current_day_videos)){
 }else{
   $all_videos = [];
 }
-
 
 // Filter The Video If it is selected
 if($vid_id !== ""){
@@ -129,8 +122,6 @@ if($vid_id !== ""){
 
     break;
   }
-}else{
-  array_shift($all_videos);
 }
 
 
@@ -146,6 +137,10 @@ if($course_day_id !==''){
   $table_name = $wpdb->prefix . "portal_days_record";
   $days_records = $wpdb->get_results("SELECT days_records FROM $table_name WHERE user_key = '$key'" ); 
   $days_records = json_decode($days_records[0]->days_records, true); 
+
+  // echo "<pre>";
+  // print_r($days_records);
+  // exit;
 
   if(!empty($days_records)){
     foreach($days_records as $index1 => $day){
@@ -179,13 +174,10 @@ if($no_of_day > 0 && $no_of_day < 8){
           // echo "<pre>";
           // print_r(strtoupper(get_the_title($course_day_id)));
           // exit;
-          if(strtoupper(get_the_title($course_day_id)) !== "RESTDAY" && strtoupper(get_the_title($course_day_id)) !== "REST DAY" && strtoupper(get_the_title($course_day_id)) !== "REST-DAY"){ ?>
+          $total_videos = count($all_videos);
+          if($total_videos > 0){ ?>
           <div class="row">
             <div class="col-lg-8">
-            <?php
-            $total_videos = count($all_videos);
-            if($total_videos > 0){
-              ?>
               <div class="course-video-section">
                   <iframe width="890" height="400" src="<?php echo $defaultVideoUrl; ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                   <div class="video-title">
@@ -197,14 +189,6 @@ if($no_of_day > 0 && $no_of_day < 8){
                 <?php echo get_post_field('post_content', $course_day_id); ?>
                 <?php echo $default_description;  ?>
               </div>
-              <?php
-            }elseif(has_post_thumbnail( $course_day_id )){
-              ?>
-              <img style="max-height: 400px;width: -webkit-fill-available; object-fit: cover; object-position: top;" src=" <?php echo wp_get_attachment_image_src( get_post_thumbnail_id( $course_day_id ), 'full' )[0]; ?>" alt="">
-              <?php
-            }
-           
-            ?>
             </div>
             <div class="col-lg-4">
               <div class="aside-related-videos" id="style">
@@ -243,12 +227,7 @@ if($no_of_day > 0 && $no_of_day < 8){
             ?>
             <h3><?php  echo get_the_title($course_day_id); ?></h3>
             <?php
-            $img_url = get_the_post_thumbnail_url($course_day_id, 'full');
-            if($img_url !== false){
-              ?>
-              <img src="<?php echo $img_url; ?>" alt="Rest Day">
-              <?php
-            }
+              echo get_post_field('post_content', $course_day_id);
           } ?>
           <div class="course-complete">
             <a href="<?php echo get_site_url(null, '/portal/calendar/?completed='.$course_day_id, 'https');?>" class="complete-btn">COMPLETED</a>

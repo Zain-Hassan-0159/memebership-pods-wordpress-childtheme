@@ -267,3 +267,12 @@ function rd_duplicate_post_link( $actions, $post ) {
   return $actions;
 }
 add_filter( 'post_row_actions', 'rd_duplicate_post_link', 10, 2 );
+
+
+function add_search_form($items, $args) {
+  $items .= '<li><a href="' . wc_get_cart_url() . '" style="font-size:20px;" class="misha-cart"><i class="fas fa-shopping-cart"></i><span>' . wc()->cart->get_cart_contents_count() . '</span></a></li>';
+
+return $items;
+}
+add_filter('wp_nav_menu_items', 'add_search_form', 10, 2);
+
