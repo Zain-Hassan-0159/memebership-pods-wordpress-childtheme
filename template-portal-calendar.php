@@ -123,6 +123,7 @@ if($total_days > 0){
             $day_data['post_id'] = $pod->field("ID");
             $day_data['no_of_day'] = $pod->field("select_the_day");
             $day_data['day_title'] = $pod->field("post_title");
+            $day_data['image_for_mobile_screen'] = $pod->field("image_for_mobile_screen");
             // putting the day array into the weeks array
             $week_data[] = $day_data;
 
@@ -140,6 +141,7 @@ if($total_days > 0){
             $day_data['post_id'] = $pod->field("ID");
             $day_data['no_of_day'] = $pod->field("select_the_day");
             $day_data['day_title'] = $pod->field("post_title");
+            $day_data['image_for_mobile_screen'] = $pod->field("image_for_mobile_screen");
             $week_data[] = $day_data;
             // Reset the day data array
             $day_data = [];
@@ -274,10 +276,6 @@ if($complete_day_id !== ""){
                                 </div>
                             </div>
                             <div class="col-md-4 col-4">
-                                <form action="" method="get">
-                                    <input type="hidden" name="res_cal" value="ok">
-                                    <input type="submit" value="Reset Calendar">
-                                </form>
                             </div>
                         </div>
                     </div>
@@ -286,16 +284,19 @@ if($complete_day_id !== ""){
                     <?php
                     foreach($weeks_data as $key => $week){
                         $month =  $key+1 > 4 ? " month_".ceil(($key+1)/4) : " month_1";
+                        // return $week['image_for_mobile_screen'] null
+
                         ?>
                         <ul class="days week-shedule weekId_<?php echo $key+1; echo " d-none "; echo $month; echo ($key+1)%4 === 0 ? " last_week " : ""; ?>"> 
                         <?php
-                        
                             foreach($week as $day){
                                 $workCompleted = $days_records[$day['no_of_day']]['completed'] === "yes" ? "workout-completed" : "";
                                 ?>
                                 <li class="<?php echo $workCompleted; ?>">
                                     <a href="<?php echo get_site_url(null, '/portal/workout/?day_id='.$day['post_id'], 'https');?>" >
-                                        <?php echo $day['no_of_day']; ?>
+                                        <?php echo $day['no_of_day'];
+                                         ?>
+                                        
                                     </a>
                                 </li>
                                 <?php
@@ -321,9 +322,14 @@ if($complete_day_id !== ""){
                         <?php
                         foreach($week as $day){
                             $workCompleted = $days_records[$day['no_of_day']]['completed'] === "yes" ? "workout-completed" : "";
+                            $mobile_image = $day['image_for_mobile_screen'] ? $day['image_for_mobile_screen']['guid'] : "";
                             ?>
                             <a  href="<?php echo get_site_url(null, '/portal/workout/?day_id='.$day['post_id'], 'https');?>">
-                                <div class="workout-day workout-active <?php echo $workCompleted; echo has_post_thumbnail($day['post_id']) ? ' incomplete' : ''; ?>" style="background-image: url(<?php echo has_post_thumbnail( $day['post_id'] ) ? wp_get_attachment_image_src( get_post_thumbnail_id( $day['post_id'] ), 'thumbnail' )[0] : ""; ?>);">
+                                <div class="workout-day large_screen workout-active <?php echo $workCompleted; echo has_post_thumbnail($day['post_id']) ? ' incomplete' : ''; ?>" style="background-image: url(<?php echo has_post_thumbnail( $day['post_id'] ) ? wp_get_attachment_image_src( get_post_thumbnail_id( $day['post_id'] ), 'thumbnail' )[0] : ""; ?>);"  >
+                                    <span class="f-40 resp-20"><?php echo $day['no_of_day']; ?></span>
+                                    <h3 class="f-25"><?php echo $day['day_title']; ?></h3>
+                                </div>
+                                <div class="workout-day small_screen workout-active <?php echo $workCompleted; echo has_post_thumbnail($day['post_id']) ? ' incomplete' : ''; ?>" style="display:none; background-image: url(<?php echo $mobile_image; ?>);" >
                                     <span class="f-40 resp-20"><?php echo $day['no_of_day']; ?></span>
                                     <h3 class="f-25"><?php echo $day['day_title']; ?></h3>
                                 </div>
@@ -337,19 +343,25 @@ if($complete_day_id !== ""){
             }
             ?>
             <div class="container">
-                <div class="flex-box">
-                <?php
-                    foreach($coursePdfs as $coursePdf){
-                        ?>
-                        <a class="pdf-btn" href="<?php echo  $coursePdf["guid"]; ?>" download >
-                            <button class="pdf-button"><?php echo $coursePdf["post_title"]; ?></button>
-                            <div class="download-icon">
-                                <img src="<?php echo get_stylesheet_directory_uri()?>/assets/images/download.png" alt="" >
-                            </div>
-                        </a>
+                <div class="cotainer-flex">
+                    <div class="flex-box">
                         <?php
-                    }
-                ?>
+                            foreach($coursePdfs as $coursePdf){
+                                ?>
+                                <a class="pdf-btn" href="<?php echo  $coursePdf["guid"]; ?>" download >
+                                    <button class="pdf-button"><?php echo $coursePdf["post_title"]; ?></button>
+                                    <div class="download-icon">
+                                        <img src="<?php echo get_stylesheet_directory_uri()?>/assets/images/download.png" alt="" >
+                                    </div>
+                                </a>
+                                <?php
+                            }
+                        ?>
+                    </div>
+                    <form class="reset_button" action="" method="get">
+                        <input type="hidden" name="res_cal" value="ok">
+                        <input class="submit_button" type="submit" value="Reset Calendar">
+                    </form>
                 </div>
             </div>
         </div>

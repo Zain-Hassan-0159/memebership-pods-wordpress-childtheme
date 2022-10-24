@@ -108,10 +108,62 @@
         color: #fff;
         font-family: 'BebasNeue Regular';
     }
+
+    .reset_button .submit_button{
+        background: #c90e0e;
+        margin-top: 18px;
+        margin-bottom: 25px;
+    }
+
+    .cotainer-flex{
+        flex-direction: column-reverse;
+        align-items: flex-start;
+        margin-top: 20px;
+    }
+
+    .reset_button{
+        margin-bottom: 20px;
+    }
+
+    .flex-box{
+        justify-content: flex-start;
+    }
+
 }
 
 
 @media (max-width: 576px) {
+
+    .large_screen{
+        display: none !important;
+    }
+
+    .small_screen{
+        display: flex !important;
+    }
+
+    .flex-box{
+        justify-content: flex-start;
+    }
+
+    .cotainer-flex{
+        flex-direction: column-reverse;
+        align-items: flex-start;
+        margin-top: 20px;
+    }
+
+    .reset_button{
+        margin-bottom: 20px;
+        width: 100%;
+        text-align: right;
+    }
+    
+    .reset_button .submit_button{
+        background: #c90e0e;
+        font-size: 9px;
+        padding: 8px 12px;
+        margin-left: 0;
+    }
 
     .days-shedule a{
         width: 100%;
@@ -241,13 +293,23 @@
     }
     .days-shedule .workout-day{
         width: 100%;
-        height: 40px;
-        border-top:1px solid #434343 ;
-        border-bottom:1px solid #434343 ;
+        background-color: gray;
+        height: 60px;
+        border-top: 1px solid #434343;
+        border-bottom: 1px solid #434343;
+        background-size: contain;
+        background-position: right;
     }
+
+    .days-shedule .workout-completed{
+        width: 100%;
+        background-color: darkgray;
+    }
+
     .pdf-btn{
         text-align: center;
         margin-top: 5px;
+        margin-left: 0;
     }
     .workout-buttons{
         padding: 0px;
@@ -292,6 +354,7 @@
         position: initial;
         margin-left: 20px;
         margin-top: 4px;
+        color: white;
     }
     .workout-key-points li {
         font-size: 10px;
@@ -312,6 +375,11 @@
     }
     .workout-week{
         margin-left: 25px;
+        display: flex;
+        margin-bottom: 0;
+        line-height: normal;
+        align-items: center;
+        padding-top: 1.5px;
     }
     .pdf-button {
         height: 20px;
@@ -325,8 +393,8 @@
     .pdf-btn .download-icon {
         width: 24px;
         height: 24px;
-        line-height: 24px;
-        top: 2px;
+        line-height: 20px;
+        top: -1px;
         right: -8px;
     }
     .calender-month h3 {
@@ -395,7 +463,7 @@
     }
 
     .mobile-calender li a{
-        font-size: 30px;
+        font-size: 22px;
         color: #2b2f38;
         font-weight: bold;
         text-decoration: none;
@@ -455,5 +523,8 @@
         text-align: left;
         margin-left: 20px;
         margin-top: 4px;
+        color: white;
     }
+
+
 }

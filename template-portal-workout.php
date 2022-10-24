@@ -110,7 +110,10 @@ if(!empty($current_day_videos)){
   $default_title = $current_day_videos[0]['post_title'];
   $default_description = $current_day_videos[0]['post_content'];
   $all_videos = $current_day_videos;
+}else{
+  $all_videos = [];
 }
+
 
 // Filter The Video If it is selected
 if($vid_id !== ""){
@@ -179,23 +182,34 @@ if($no_of_day > 0 && $no_of_day < 8){
           if(strtoupper(get_the_title($course_day_id)) !== "RESTDAY" && strtoupper(get_the_title($course_day_id)) !== "REST DAY" && strtoupper(get_the_title($course_day_id)) !== "REST-DAY"){ ?>
           <div class="row">
             <div class="col-lg-8">
+            <?php
+            $total_videos = count($all_videos);
+            if($total_videos > 0){
+              ?>
               <div class="course-video-section">
-              <iframe width="890" height="400" src="<?php echo $defaultVideoUrl; ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="video-title">
-                  <h3><?php echo $default_title; ?></h3>
-                  <!-- <p><span>14430 views</span><span>2 month ago</span></p> -->
-                </div>
+                  <iframe width="890" height="400" src="<?php echo $defaultVideoUrl; ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                  <div class="video-title">
+                    <h3><?php echo $default_title; ?></h3>
+                    <!-- <p><span>14430 views</span><span>2 month ago</span></p> -->
+                  </div>
               </div>
-
               <div class="lecture-description">
                 <?php echo get_post_field('post_content', $course_day_id); ?>
                 <?php echo $default_description;  ?>
               </div>
+              <?php
+            }elseif(has_post_thumbnail( $course_day_id )){
+              ?>
+              <img style="max-height: 400px;width: -webkit-fill-available; object-fit: cover; object-position: top;" src=" <?php echo wp_get_attachment_image_src( get_post_thumbnail_id( $course_day_id ), 'full' )[0]; ?>" alt="">
+              <?php
+            }
+           
+            ?>
             </div>
             <div class="col-lg-4">
               <div class="aside-related-videos" id="style">
                 <?php
-                  if(count($all_videos) > 0){
+                  if($total_videos > 0){
                     foreach($all_videos as $video){
                       $parameters = !empty($course_day_id) ? "?day_id=".$course_day_id."&vid_id=".$video['ID'] : "?vid_id=".$video['ID'];
 

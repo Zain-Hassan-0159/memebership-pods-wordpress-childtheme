@@ -112,7 +112,7 @@ h3{
     height: 40px;
     line-height: 33px;
     font-family: 'BebasNeue Regular';
-    font-size: 24px;
+    font-size: 16px;
     color: #000;
     border-radius: 30px;
 /*     background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(0,0,0,0.3144608185070903) 55%); */
@@ -761,7 +761,14 @@ padding: 30px 0;
 	background-color:transparent;
 }
 .login-form .login-remember{
-	display:none;
+	background-color: transparent;
+}
+.login-form .login-remember label{
+	display: inherit;
+    color: white;
+}
+.login-form .login-remember input{
+	width: fit-content;
 }
 
 input:-webkit-autofill,
@@ -794,7 +801,7 @@ input:-webkit-autofill:active {
 }
 .login-form .login-submit #wp-submit{
 	background-color:#D31212;
-	height:42px;
+	height:43px;
 	width:100px;
 	border-radius:0px;
 }
@@ -847,4 +854,99 @@ input:-webkit-autofill:active {
 .forget_password:hover{
     color:#fff;
     font-weight: 700;
+}
+.cotainer-flex{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.reset_button{
+    text-align: center;
+}
+
+.reset_button .submit_button{
+    background: #c90e0e;
+    border: 2px solid white;
+    margin-left: 16px;
+    outline: 0;
+}
+
+.reset_button .submit_button:hover{
+    background: #c90e0e !important;
+    border: 2px solid white;
+    outline: 0;
+}
+
+.pdf-btn:nth-child(1){
+    margin-left: 0;
+}
+
+input[type='checkbox'] {
+    accent-color: #c90e0e;
+    padding: 10px;
+    transform: scale(1.5);
+    margin-right: 10px;
+}
+
+.calender-month .fa-solid{
+    cursor: pointer;
+}
+
+.calender-month .fa-solid:hover{
+    color: #64ddc3 !important;
+}
+
+.days-shedule .workout-day:hover span, .days-shedule .workout-day:hover h3, .course-card:hover h3, .related-course-details:hover h3, .meal-plan-btn a:hover{
+    color: #64ddc3 !important;
+}
+
+.reset_button .submit_button:hover{
+    color: #64ddc3 !important;
+    outline-color: #64ddc3 !important;
+}
+
+.navbar .nav-link:hover, .customer-name:hover{
+    background-color: #64ddc3 !important;
+}
+
+ .customer-name:hover p{
+    color: #000;
+}
+
+
+
+.customer-name, p , *, .days-shedule .workout-day span, .days-shedule .workout-day h3, .pdf-button, .reset_button .submit_button, .nav-link{
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    -ms-transition: 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.misha-cart{
+    position: relative;
+}
+
+.misha-cart:hover .fa-shopping-cart{
+    color: #64ddc3;
+}
+
+.misha-cart .fa-shopping-cart{
+    font-size: 22px;
+}
+
+.misha-cart span{
+    position: absolute;
+    top: 0;
+    right: 14px;
+    font-size: 14px;
+    background: #c90e0e;
+    color: white;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
