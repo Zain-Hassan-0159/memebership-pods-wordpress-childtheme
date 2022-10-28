@@ -135,6 +135,7 @@ if($total_days > 0){
             $day_data['no_of_day'] = $pod->field("select_the_day");
             $day_data['day_title'] = $pod->field("post_title");
             $day_data['image_for_mobile_screen'] = $pod->field("image_for_mobile_screen");
+            $day_data['check_it_to_make_icon_image'] = $pod->field("check_it_to_make_icon_image");
             // putting the day array into the weeks array
             $week_data[] = $day_data;
 
@@ -153,6 +154,7 @@ if($total_days > 0){
             $day_data['no_of_day'] = $pod->field("select_the_day");
             $day_data['day_title'] = $pod->field("post_title");
             $day_data['image_for_mobile_screen'] = $pod->field("image_for_mobile_screen");
+            $day_data['check_it_to_make_icon_image'] = $pod->field("check_it_to_make_icon_image");
             $week_data[] = $day_data;
             // Reset the day data array
             $day_data = [];
@@ -341,13 +343,14 @@ if($complete_day_id !== ""){
                         foreach($week as $day){
                             $workCompleted = $days_records[$day['no_of_day']]['completed'] === "yes" ? "workout-completed" : "";
                             $mobile_image = $day['image_for_mobile_screen'] ? $day['image_for_mobile_screen']['guid'] : "";
+                            $icon_image = $day['check_it_to_make_icon_image'] ? "contain" : "cover";
                             ?>
                             <a  href="<?php echo get_site_url(null, '/portal/workout/?day_id='.$day['post_id'], 'https');?>">
                                 <div class="workout-day large_screen workout-active <?php echo $workCompleted; echo has_post_thumbnail($day['post_id']) ? ' incomplete' : ''; ?>" style="background-image: url(<?php echo has_post_thumbnail( $day['post_id'] ) ? wp_get_attachment_image_src( get_post_thumbnail_id( $day['post_id'] ), 'thumbnail' )[0] : ""; ?>);"  >
                                     <span class="f-40 resp-20"><?php echo $day['no_of_day']; ?></span>
                                     <h3 class="f-25"><?php echo $day['day_title']; ?></h3>
                                 </div>
-                                <div class="workout-day small_screen workout-active <?php echo $workCompleted; echo has_post_thumbnail($day['post_id']) ? ' incomplete' : ''; ?>" style="display:none; background-image: url(<?php echo $mobile_image; ?>);" >
+                                <div class="workout-day small_screen workout-active <?php echo $workCompleted; echo has_post_thumbnail($day['post_id']) ? ' incomplete' : ''; ?>" style="display:none; background-image: url(<?php echo $mobile_image; ?>); background-size: <?php echo $icon_image; ?>;" >
                                     <span class="f-40 resp-20"><?php echo $day['no_of_day']; ?></span>
                                     <h3 class="f-25"><?php echo $day['day_title']; ?></h3>
                                 </div>
@@ -376,10 +379,29 @@ if($complete_day_id !== ""){
                             }
                         ?>
                     </div>
-                    <form class="reset_button" action="" method="get">
-                        <input type="hidden" name="res_cal" value="ok">
-                        <input class="submit_button" type="submit" value="Reset Calendar">
-                    </form>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="res_button" data-bs-toggle="modal" data-bs-target="#resetModel">
+                    Reset Calendar
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="resetModel" tabindex="-1" aria-labelledby="resetModelLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <div class="modal-body">
+                            Are you sure to reset the Calendar?
+                        </div>
+                        <div class="modal-footer">
+                            <button  type="button" class="cancel_reset btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <form class="reset_button" action="" method="get">
+                                <input type="hidden" name="res_cal" value="ok">
+                                <input class="submit_button" type="submit" value="Yes Reset">
+                            </form>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+
                 </div>
             </div>
         </div>

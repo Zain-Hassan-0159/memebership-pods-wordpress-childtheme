@@ -115,6 +115,21 @@
         margin-bottom: 25px;
     }
 
+    .res_button{
+        background: #c90e0e;
+        font-size: 9px;
+        padding: 6px 12px;
+        margin-bottom: 20px;
+        display: block;
+        margin-left: auto;
+    }
+
+    .cancel_reset {
+        font-size: 9px;
+        padding: 8px 12px;
+        display: block;
+        margin-left: auto;
+    }
     .cotainer-flex{
         flex-direction: column-reverse;
         align-items: flex-start;

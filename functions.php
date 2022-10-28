@@ -55,32 +55,7 @@ add_post_type_support( 'page', 'excerpt' );
 
 
  
-// Add the custom columns to the book post type:
-add_filter( 'manage_course_day_posts_columns', 'set_custom_edit_book_columns' );
-function set_custom_edit_book_columns($columns) {
-    $columns['select_the_day'] = "Day";
-    $columns['course_name'] =   "Course";
 
-    return $columns;
-}
-
-// Add the data to the custom columns for the book post type:
-add_action( 'manage_course_day_posts_custom_column' , 'custom_book_column', 10, 2 );
-function custom_book_column( $column, $post_id ) {
-    switch ( $column ) {
-
-        case 'select_the_day' :
-            $pod =  pods("course_day", $post_id);
-            echo  $pod->field("select_the_day");
-            break;
-
-        case 'course_name' :
-            $pod = pods("course_day", $post_id);
-            echo $pod->field("course_name")["post_title"];echo " "; echo $pod->field("course_name")["ID"];
-            break;
-
-    }
-}
 
 function get_level_id_of_current_user()
 {
@@ -276,3 +251,107 @@ return $items;
 }
 add_filter('wp_nav_menu_items', 'add_search_form', 10, 2);
 
+
+// Sortable Columns
+
+// Add the custom columns to the book post type:
+add_filter( 'manage_course_day_posts_columns', 'set_custom_edit_book_columns' );
+function set_custom_edit_book_columns($columns) {
+    $order = isset($_GET['order']) && $_GET['order'] == 'desc' ? 'asc' : 'desc';
+    $columns['select_the_day'] = "Day";
+    $columns['course_name'] =  '<a href="https://workoutmonkeys.com/wp-admin/edit.php?s&post_status=all&post_type=course_day&orderby=course_name&order='.$order.'"><span>Course</span><span class="sorting-indicator"></span></a>';
+
+    return $columns;
+}
+
+// Add the data to the custom columns for the book post type:
+add_action( 'manage_course_day_posts_custom_column' , 'custom_book_column', 10, 2 );
+function custom_book_column( $column, $post_id ) {
+    switch ( $column ) {
+
+        case 'select_the_day' :
+            $pod =  pods("course_day", $post_id);
+            echo  $pod->field("select_the_day");
+            break;
+
+        case 'course_name' :
+            $pod = pods("course_day", $post_id);
+            echo $pod->field("course_name")["post_title"];echo " "; echo $pod->field("course_name")["ID"];
+            break;
+
+    }
+}
+
+function my_sort_custom_column_query( $query ) {
+  if( ! is_admin() )
+      return;
+
+  $orderby = $query->get('orderby');
+
+  if( 'course_name' == $orderby ) {
+      $query->set('meta_key','course_name');
+      $query->set('orderby','meta_value'); // "meta_value_num" is used for numeric sorting
+                                            // "meta_value"     is used for Alphabetically sort.
+      // We can user any query params which used in WP_Query.
+  }
+
+  if(isset($_GET['course_name']) && $_GET['course_name'] != ''){
+    $query->set('meta_query', array(
+      array(
+          'key' => 'course_name',
+          'value' => $_GET['course_name'],
+          'compare'   => '='
+      )
+    ));
+  }
+
+
+}
+
+
+global $pagenow;
+
+if ( is_admin() && 'edit.php' == $pagenow && 'course_day' == $_GET['post_type'] ) {
+  // set query to sort
+  add_action( 'pre_get_posts', 'my_sort_custom_column_query' );
+
+}
+
+  // Dropdown filter
+
+add_action('restrict_manage_posts','location_filtering',10);
+function location_filtering($post_type){
+    if('course_day' !== $post_type){
+      return; //filter your post
+    }
+    //get unique values of the meta field to filer by.
+	$meta_key = 'course_name';
+	global $wpdb;
+	$results = $wpdb->get_col( 
+		$wpdb->prepare( "
+			SELECT DISTINCT pm.meta_value FROM {$wpdb->postmeta} pm
+			LEFT JOIN {$wpdb->posts} p ON p.ID = pm.post_id
+			WHERE pm.meta_key = '%s' 
+			AND p.post_status IN ('publish', 'draft')
+			ORDER BY pm.meta_value", 
+			$meta_key
+		) 
+  );
+   //build a custom dropdown list of values to filter by
+    echo '<select id="my-loc" name="course_name">';
+    echo '<option value="0">' . __( 'Show all Courses', 'my-custom-domain' ) . ' </option>';
+    foreach($results as $location){
+      $selected = '';
+      $request_attr = 'course_name';
+      if ( isset($_GET[$request_attr]) ) {
+        $selected = $_GET[$request_attr];
+      }
+      $select = $selected == $location ? ' selected="selected"' : '';
+
+      $courseName = get_the_title($location);
+
+      echo '<option value="'.$location.'" '.$select.'>' . $courseName . ' </option>';
+    }
+    echo '</select>';
+  }
+    

@@ -865,17 +865,47 @@ input:-webkit-autofill:active {
     text-align: center;
 }
 
-.reset_button .submit_button{
-    background: #c90e0e;
+.cancel_reset, .res_button{
     border: 2px solid white;
     margin-left: 16px;
     outline: 0;
+    border-radius: 30px;
+    padding-top: 10px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    line-height: 1;
+}
+
+.res_button{
+    background-color: #c90e0e !important;
+}
+
+.cancel_reset:hover, .res_button:hover{
+    background-color: #c90e0e !important;
+    border: 2px solid white !important;
+   color: white !important;
+}
+
+
+.reset_button .submit_button{
+    background-color: #c90e0e !important;
+    border: 2px solid white !important;
+    margin-left: 16px;
+    outline: 0;
+
 }
 
 .reset_button .submit_button:hover{
-    background: #c90e0e !important;
+    border-radius: 30px;
     border: 2px solid white;
     outline: 0;
+    color: white;
 }
 
 .pdf-btn:nth-child(1){
