@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -37,6 +38,15 @@
                       </li>
                       <li class="nav-item">
                         <a class="nav-link <?php echo is_page_template( 'template-portal-workout.php' ) ? 'active' : '';?>" href="<?php echo get_site_url() ?>/portal/workout">Today's WORKOUT</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link <?php echo is_page_template( 'template-portal-mindset.php' ) ? 'active' : '';?>" href="<?php echo get_site_url() ?>/portal/mindset">Mindset</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link <?php echo is_page_template( 'template-portal-navigation.php' ) ? 'active' : '';?>" href="<?php echo get_site_url() ?>/portal/navigation">Navigations</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link <?php echo is_page_template( 'template-portal-instructions.php' ) ? 'active' : '';?>" href="<?php echo get_site_url() ?>/portal/instruction">Instructions</a>
                       </li>
                       <li class="nav-item">
                         <a class="nav-link" href="<?php echo wp_logout_url( home_url() ); ?>">Logout</a>
